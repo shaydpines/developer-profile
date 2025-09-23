@@ -60,6 +60,7 @@ cursor: pointer;
 
 .container {
   padding: 50px 0;
+  width: 100%;
 }
 
 .row {
@@ -74,6 +75,33 @@ cursor: pointer;
   font-size: 48px;
   margin-bottom: 60px;
 
+}
+
+.link__hover-effect {
+    position: relative;
+}
+
+.link__hover-effect:after {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    right: 0;
+    height: 3px;
+    width: 0;
+    transition: all 300ms ease;
+}
+
+.link__hover-effect:hover:after {
+    left: 0;
+    width: 100%;
+}
+
+.link__hover-effect--white:after {
+    background-color: white
+}
+
+.link__hover-effect--black:after {
+    background-color: black;
 }
 
 /*
