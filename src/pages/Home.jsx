@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import Nav from "../components/Nav";
 import Landing from "../components/Landing";
 import Projects from "../components/Projects";
-import Footer from "../components/Footer";
 import Modal from "../components/Modal";
 
 export default function Home({ isModalOpen, toggleModal, handleContactClick }) {

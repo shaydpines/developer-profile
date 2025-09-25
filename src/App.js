@@ -1,3 +1,5 @@
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import { useEffect, useState } from "react";
@@ -10,6 +12,8 @@ function App() {
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  AOS.init()
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("darkMode");
