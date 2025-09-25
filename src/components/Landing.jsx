@@ -71,6 +71,9 @@ export default function Landing({ handleContactClick }) {
             ))}
           </ul>
         </div>
+        <a href="#projects" className="scroll">
+          <div className="scroll__icon click"></div>
+        </a>
         <div className="landing__sphere--wrapper">
           <Sphere />
         </div>
@@ -78,10 +81,6 @@ export default function Landing({ handleContactClick }) {
       <button className="mail__btn" onClick={handleContactClick}>
         <FaEnvelope className="click" />
       </button>
-
-      <a href="#projects" className="scroll">
-        <div className="scroll__icon click"></div>
-      </a>
     </section>
   );
 }
