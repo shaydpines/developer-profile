@@ -2,7 +2,7 @@ import React from "react";
 import RLP from "../assets/RLP.png";
 import { FaCircleHalfStroke } from "react-icons/fa6";
 
-export default function Nav({ handleContactClick }) {
+export default function Nav({ toggleContrast, handleContactClick }) {
   return (
     <nav>
       <div className="nav__row">
@@ -47,16 +47,14 @@ export default function Nav({ handleContactClick }) {
             </a>
           </li>
           <li className="nav__link">
-            <a
+            <div
               href="#"
-              className="
-            nav__link--anchor
-            link__hover-effect
-            link__hover-effect--black
-            "
+              className="nav__link--anchor
+              click"
+              onClick={toggleContrast}
             >
               <FaCircleHalfStroke />
-            </a>
+            </div>
           </li>
         </ul>
       </div>

@@ -1,6 +1,4 @@
 import Nav from "./components/Nav";
-import Landing from "./components/Landing";
-import Projects from "./components/Projects";
 import Footer from "./components/Footer";
 import { useEffect, useRef, useState } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
@@ -8,9 +6,27 @@ import Home from "./pages/Home";
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const isMounted = useRef(false);
+  const [contrastToggle, setContrastToggle] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
+
+  // 🔹 Load dark mode preference on mount
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("darkMode");
+    if (savedTheme === "true") {
+      setContrastToggle(true);
+    }
+  }, []);
+
+  // 🔹 Save preference whenever it changes
+  useEffect(() => {
+    localStorage.setItem("darkMode", contrastToggle);
+  }, [contrastToggle]);
+
+  function toggleContrast() {
+    setContrastToggle((prev) => !prev);
+  }
 
   const handleContactClick = (e) => {
     e.preventDefault();
@@ -23,26 +39,24 @@ function App() {
   };
 
   function toggleModal() {
-    setIsModalOpen(!isModalOpen);
+    setIsModalOpen((prev) => !prev);
   }
 
-  useEffect(() => {
-    if (!isMounted.current) {
-      isMounted.current = true;
-      return;
-    }
-
-    if (!isModalOpen) {
-      return document.body.classList.remove("modal--open");
-    }
-    setTimeout(() => {
-      document.body.classList += "modal--open";
-    }, 1);
-  }, [isModalOpen]);
+  // 🔹 Build the classes for the root div
+  const appClasses = [
+    "app",
+    contrastToggle ? "dark-theme" : "",
+    isModalOpen ? "modal--open" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <>
-      <Nav handleContactClick={handleContactClick} />
+    <div className={appClasses}>
+      <Nav
+        toggleContrast={toggleContrast}
+        handleContactClick={handleContactClick}
+      />
       <Routes>
         <Route
           path="/"
@@ -56,7 +70,7 @@ function App() {
         />
       </Routes>
       <Footer handleContactClick={handleContactClick} />
-    </>
+    </div>
   );
 }
 

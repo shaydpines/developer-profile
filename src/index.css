@@ -1,5 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
+/* 
+  VARIABLES 
+*/
+
+:root {
+  --color-primary: #3d7b7a;
+  --color-light: #fafafa;
+  --color-dark: #242424;
+
+  /* Light theme */
+  --color-text: var(--color-dark);
+  --color-bg: var(--color-light);
+}
+
+.dark-theme {
+  --color-text: var(--color-light);
+  --color-bg: var(--color-dark);
+}
+
+/* General */
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -24,21 +45,17 @@ a {
   text-decoration: none;
 }
 
-section {
-  background-color: rgb(250, 250, 250);
-}
-
 p {
   line-height: 1.5;
   font-size: 16px;
 }
 
 .color--text {
-  color: #3d7b7a;
+  color: var(--color-primary);
 }
 
 .color--background {
-  background-color: #3d7b7a;
+  background-color: var(--color-primary);
 }
 
 button {
@@ -46,16 +63,28 @@ button {
 }
 
 .mail__btn {
-  width: 70px;
-  height: 70px;
+  width: 56px;
+  height: 56px;
   font-size: 32px;
   border-radius: 50%;
   border: none;
-  background-color: #242424;
-  color: white;
-  position: absolute;
+  background-color: var(--color-text);
+  color: var(--color-bg);
+  position: fixed;
+  z-index: 100;
   bottom: 32px;
   right: 40px;
+}
+
+.mail__btn,
+.header__link--anchor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mail__btn:hover .click {
+  transform: scale(1.1);
 }
 
 .container {
@@ -70,6 +99,22 @@ button {
   padding: 0 12px;
 }
 
+nav, section {
+  background-color: var(--color-bg);
+  transition: background-color 300ms ease;
+}
+
+.title,
+.section__title,
+.header__para,
+.nav__link--anchor,
+.link__hover-effect--black,
+.scroll__icon
+{
+color: var(--color-text);
+transition: color 300ms ease;
+}
+
 .section__title {
   text-align: center;
   font-size: 48px;
@@ -77,30 +122,30 @@ button {
 }
 
 .link__hover-effect {
-    position: relative;
+  position: relative;
 }
 
 .link__hover-effect:after {
-    content: "";
-    position: absolute;
-    bottom: -3px;
-    right: 0;
-    height: 3px;
-    width: 0;
-    transition: all 300ms ease;
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  right: 0;
+  height: 3px;
+  width: 0;
+  transition: all 300ms ease;
 }
 
 .link__hover-effect:hover:after {
-    left: 0;
-    width: 100%;
+  left: 0;
+  width: 100%;
 }
 
 .link__hover-effect--white:after {
-    background-color: white
+  background-color: var(--color-light);
 }
 
 .link__hover-effect--black:after {
-    background-color: black;
+  background-color: var(--color-text);
 }
 
 .scroll,
@@ -117,18 +162,20 @@ button {
   transition: all 400ms;
 }
 
+.click {
+  cursor: pointer;
+  transition: transform 300ms ease;
+}
+
+.click:hover {
+  transform: scale(1.1);
+}
+
 /*
 
 Modal
 
 */
-
-#search,
-#movies {
-  opacity: 1;
-  visibility: visible;
-  transition: all 600ms;
-}
 
 .modal--open #search,
 .modal--open #movies,
@@ -153,6 +200,7 @@ Modal
   max-width: 1100px;
   max-height: 90vh;
   overflow-y: auto;
+  overflow-x: hidden;
   border-radius: 20px;
   display: flex;
   visibility: hidden;
@@ -181,13 +229,14 @@ Modal
 
 .modal__about {
   transform: translateX(-110%);
-  background-color: rgb(245, 245, 245);
+  background-color: var(--color-light);
+  color: var(--color-dark);
 }
 
 .modal__contact {
   transform: translateX(110%);
-  background-color: #242424;
-  color: white;
+  background-color: var(--color-dark);
+  color: var(--color-light);
 }
 
 .modal__container {
@@ -249,10 +298,10 @@ Modal
 }
 
 .form__submit {
-  background-color: #55169c;
-  border: 2px solid #55169c;
+  background-color: var(--color-primary);
+  border: 2px solid var(--color-primary);
   border-radius: 5px;
-  color: white;
+  color: var(--color-light);
   font-weight: 700;
   width: 100%;
   max-width: 240px;
@@ -262,13 +311,13 @@ Modal
 }
 
 .form__submit:hover {
-  border-color: white;
+  border-color: var(--color-light);
   background-color: transparent;
 }
 
 .form__submit:active {
-  border-color: #f06449;
-  color: #f06449;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .modal__overlay {
@@ -283,7 +332,7 @@ Modal
 }
 
 .modal__overlay--loading {
-  background-color: #242424;
+  background-color: var(--color-dark);
   font-size: 80px;
   opacity: 0.8;
 }
@@ -319,7 +368,7 @@ Modal
   position: absolute;
   top: 30px;
   right: 40px;
-  color: white;
+  color: var(--color-light);
   font-size: 36px;
   z-index: 100;
 }
@@ -331,7 +380,6 @@ Navigation
 */
 
 nav {
-  background-color: rgb(250, 250, 250);
   width: 100%;
 }
 
@@ -365,7 +413,7 @@ nav {
 
 .nav__link--anchor {
   font-size: 16px;
-  color: #242424;
+  color: var(--color-text);
   font-weight: 700;
 }
 
@@ -414,7 +462,7 @@ LANDING PAGE
 
 .header__link--anchor {
   font-weight: 700;
-  color: white;
+  color: var(--color-light);
   font-size: 16px;
 }
 
@@ -428,7 +476,7 @@ LANDING PAGE
 .scroll__icon {
   width: 20px;
   height: 30px;
-  border: 2px solid #242424;
+  border: 2px solid var(--color-text);
   border-radius: 24px;
   display: flex;
   align-items: center;
@@ -439,7 +487,7 @@ LANDING PAGE
   content: "";
   width: 4px;
   height: 6px;
-  background-color: #242424;
+  background-color: var(--color-text);
   border-radius: 2px;
   animation: scroll 1s infinite alternate-reverse;
 }
@@ -461,6 +509,7 @@ Projects
 
 .project {
   margin-bottom: 80px;
+  color: var(--color-light);
 }
 
 .project:last-child {
@@ -510,7 +559,6 @@ Projects
   left: 90px;
   transform: translateY(100%);
   opacity: 0;
-  color: white;
   max-width: 550px;
   transition: opacity 300ms ease;
   transition: transform 450ms ease;
@@ -525,7 +573,6 @@ Projects
 }
 
 .project__description--link {
-  color: white;
   font-size: 20px;
   margin-right: 16px;
 }
@@ -541,7 +588,7 @@ Projects
  */
 
 footer {
-  background-color: #242424;
+  background-color: var(--color-dark);
   display: flex;
   padding: 6% 0;
 }
@@ -566,7 +613,7 @@ footer {
 
 .footer__social--link,
 .footer__copyright {
-  color: white;
+  color: var(--color-light);
 }
 
 /*
