@@ -434,14 +434,16 @@ LANDING PAGE
 }
 
 .header {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
   width: 100%;
-  padding: 0 30px;
+  padding: 30px;
   display: flex;
+  align-items: center;
   overflow: hidden;
+}
+
+.header__intro {
+  padding-bottom: 24px;
 }
 
 .header__para {
@@ -599,12 +601,16 @@ Projects
 .project__description {
   position: absolute;
   top: 50%;
-  left: 90px;
+  left: 0;
   transform: translateY(100%);
   opacity: 0;
   max-width: 550px;
   transition: opacity 300ms ease;
   transition: transform 450ms ease;
+}
+
+.project__description--row {
+  padding: 64px;
 }
 
 .project__description--title {
@@ -666,6 +672,13 @@ Media
 
 */
 
+/* medium screens */
+@media (max-width: 1024px) {
+  header {
+    flex-direction: column;
+  }
+}
+
 /* Small phones, tablets, large smart phones */
 @media (max-width: 768px) {
   .title {
@@ -688,7 +701,7 @@ Media
   }
 
   .modal__container {
-    padding: 50px 0;
+    padding: 20px 0;
   }
 
   .modal__row {
@@ -697,6 +710,15 @@ Media
 
   .form__submit {
     max-width: 200px;
+  }
+
+  .project__description {
+    left: 0;
+    width: 100%;
+  }
+
+  .project__description--row {
+    padding: 24px;
   }
 }
 
@@ -714,15 +736,12 @@ Media
     display: none;
   }
 
-  .project__description--para {
-    display: none;
+  .project__description {
+    text-align: center;
   }
 
-  .project__description {
-    left: 0;
-    padding: 0;
-    width: 100%;
-    text-align: center;
+  .project__description--para {
+    display: none;
   }
 
   .project__description--sub-title {

@@ -6,16 +6,37 @@ import resume from "../assets/RLP.png";
 import Sphere from "./Sphere";
 
 export default function Landing({ handleContactClick }) {
+  const isMobile = window.innerWidth <= 1024;
+  const baseDelay = isMobile ? 0 : 2400;
 
   return (
     <section id="landing">
       <header className="header">
         <div className="header__intro">
-          <h1 className="title">Hey</h1>
-          <h1 className="title">
+          <h1
+            className="title"
+            data-aos="fade-right"
+            data-aos-duration="1000"
+            data-aos-easing="ease-in-out"
+          >
+            Hey
+          </h1>
+          <h1
+            className="title"
+            data-aos="fade-right"
+            data-aos-delay="600"
+            data-aos-duration="1000"
+            data-aos-easing="ease-in-out"
+          >
             <span className="color--text">I'm Rafael,</span>
           </h1>
-          <p className="header__para">
+          <p
+            className="header__para"
+            data-aos="fade-right"
+            data-aos-delay="1500"
+            data-aos-duration="1000"
+            data-aos-easing="ease-in-out"
+          >
             I'm a <b className="color--text">Frontend Software Engineer</b> who
             specializes in crafting clean, responsive, and user-friendly web
             applications. I have a strong foundation in{" "}
@@ -26,34 +47,28 @@ export default function Landing({ handleContactClick }) {
             Here's a bit more <b className="color--text">about me.</b>
           </p>
           <ul className="header__link--list">
-            <li className="header__link color--background">
-              <a
-                href="https://www.linkedin.com/in/rafael-ladmer-price-8113a3a7/"
-                target="_blank"
-                className="header__link--anchor click"
+            {[
+              { href: "https://linkedin.com", icon: <FaLinkedinIn /> },
+              { href: "https://github.com/shaydpines", icon: <FaGithub /> },
+              { href: resume, icon: <FaRegFilePdf /> },
+            ].map((item, i) => (
+              <li
+                key={i}
+                className="header__link color--background"
+                data-aos="fade-up"
+                data-aos-delay={baseDelay + i * 300}
+                data-aos-duration="500"
+                data-aos-easing="ease-in-out"
               >
-                <FaLinkedinIn />
-              </a>
-            </li>
-            <li className="header__link color--background">
-              <a
-                href="https://github.com/shaydpines"
-                target="_blank"
-                className="header__link--anchor click"
-              >
-                <FaGithub />
-              </a>
-            </li>
-            <li className="header__link color--background">
-              <a
-                href={resume}
-                target="_blank"
-                className="header__link--anchor click"
-              >
-                {/* Change out for your resume soon! */}
-                <FaRegFilePdf />
-              </a>
-            </li>
+                <a
+                  href={item.href}
+                  target="_blank"
+                  className="header__link--anchor click"
+                >
+                  {item.icon}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
         <div className="landing__sphere--wrapper">

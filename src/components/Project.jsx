@@ -13,6 +13,7 @@ export default function Project({ image, title, tools, description, github, link
                 />
                 <div className="project__wrapper--background"></div>
                 <div className="project__description">
+                    <div className="project__description--row">
                   <h3 className="project__description--title">{title}</h3>
                   <h4 className="project__description--sub-title">
                     {tools}
@@ -28,6 +29,7 @@ export default function Project({ image, title, tools, description, github, link
                       <FaLink />
                     </a>
                   </div>
+                    </div>
                 </div>
               </div>
             </div>
