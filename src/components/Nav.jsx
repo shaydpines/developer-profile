@@ -24,7 +24,7 @@ export default function Nav({ toggleContrast, handleContactClick }) {
           </li>
           <li className="nav__link">
             <a
-              href="#"
+              href="#projects"
               className="
             nav__link--anchor
             link__hover-effect
@@ -36,7 +36,7 @@ export default function Nav({ toggleContrast, handleContactClick }) {
           </li>
           <li className="nav__link">
             <a
-              href="/"
+              href="#"
               onClick={handleContactClick}
               className="nav__link--anchor
               link__hover-effect
@@ -48,7 +48,6 @@ export default function Nav({ toggleContrast, handleContactClick }) {
           </li>
           <li className="nav__link">
             <div
-              href="#"
               className="nav__link--anchor
               click"
               onClick={toggleContrast}

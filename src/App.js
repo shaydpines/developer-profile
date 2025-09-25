@@ -1,6 +1,6 @@
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 
@@ -11,7 +11,6 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 🔹 Load dark mode preference on mount
   useEffect(() => {
     const savedTheme = localStorage.getItem("darkMode");
     if (savedTheme === "true") {
@@ -19,13 +18,18 @@ function App() {
     }
   }, []);
 
-  // 🔹 Save preference whenever it changes
   useEffect(() => {
     localStorage.setItem("darkMode", contrastToggle);
   }, [contrastToggle]);
 
   function toggleContrast() {
     setContrastToggle((prev) => !prev);
+  }
+
+  const scrollToTop = (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (!isModalOpen) {handleContactClick(e);}
   }
 
   const handleContactClick = (e) => {
@@ -42,7 +46,6 @@ function App() {
     setIsModalOpen((prev) => !prev);
   }
 
-  // 🔹 Build the classes for the root div
   const appClasses = [
     "app",
     contrastToggle ? "dark-theme" : "",
@@ -69,7 +72,7 @@ function App() {
           }
         />
       </Routes>
-      <Footer handleContactClick={handleContactClick} />
+      <Footer scrollToTop={scrollToTop} />
     </div>
   );
 }

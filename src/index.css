@@ -116,6 +116,8 @@ transition: color 300ms ease;
 }
 
 .section__title {
+  position: relative;
+  z-index: 1;
   text-align: center;
   font-size: 48px;
   margin-bottom: 60px;
@@ -169,6 +171,40 @@ transition: color 300ms ease;
 
 .click:hover {
   transform: scale(1.1);
+}
+
+/*
+
+  SHAPES
+
+*/
+
+.shape {
+    position: fixed;
+}
+
+.shape--0, .shape--1, .shape--2 {
+    top: 15vh;
+}
+
+.shape--3, .shape--4, .shape--5 {
+    top: 45vh;
+}
+
+.shape--6, .shape--7, .shape--8 {
+    top: 80vh;
+}
+
+.shape--0, .shape--3, .shape--6 {
+    left: 5vw;
+}
+
+.shape--1, .shape--4, .shape--7 {
+    left: 50vw;
+}
+
+.shape--2, .shape--5, .shape--8 {
+    left: 80vw;
 }
 
 /*
@@ -424,7 +460,7 @@ LANDING PAGE
 
 */
 
-#landing-page {
+#landing {
   min-height: calc(100vh - 56px);
 }
 
@@ -507,6 +543,10 @@ Projects
 
 */
 
+#projects {
+  padding-bottom: 52px;
+}
+
 .project {
   margin-bottom: 80px;
   color: var(--color-light);
@@ -588,9 +628,10 @@ Projects
  */
 
 footer {
+  position: relative;
+  z-index: 101;
   background-color: var(--color-dark);
   display: flex;
-  padding: 6% 0;
 }
 
 .footer__row {
@@ -622,7 +663,17 @@ Media
 
 */
 
-@media (max-width: 728px) {
+
+/* Small phones, tablets, large smart phones */
+@media (max-width: 768px) {
+  .title {
+    font-size: 80px;
+  }
+
+  .header__para {
+    font-size: 20px;
+  }
+
   .modal {
     height: auto;
     max-height: none;
@@ -634,7 +685,49 @@ Media
     width: 100%;
   }
 
+  .modal__container {
+    padding: 50px 0;
+  }
+
+  .modal__row {
+    padding: 0 50px;
+  }
+
   .form__submit {
     max-width: 200px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .title {
+    font-size: 52px;
+  }
+
+  .header__para {
+    font-size: 18px;
+  }
+
+  .nav__link:first-child {
+    display: none;
+  }
+
+  .project__description--para {
+    display: none;
+  }
+
+  .project__description {
+    left: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .project__description--sub-title {
+    margin-bottom: 8px;
+  }
+
+  .modal__row {
+    padding: 40px;
   }
 }

@@ -1,10 +1,11 @@
 import React from "react";
 import { FaEnvelope, FaRegFilePdf } from "react-icons/fa6";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
+import resume from '../assets/RLP.png'
 
 export default function Landing({ handleContactClick }) {
   return (
-    <section id="landing-page">
+    <section id="landing">
       <header className="header">
         <h1 className="title">Hey</h1>
         <h1 className="title"><span className="color--text">I'm Rafael,</span></h1>
@@ -39,7 +40,7 @@ export default function Landing({ handleContactClick }) {
           </li>
           <li className="header__link color--background">
             <a
-              href="./assets/Resume.pdf"
+              href={resume}
               target="_blank"
               className="header__link--anchor click"
             >
