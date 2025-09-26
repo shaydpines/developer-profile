@@ -1,5 +1,5 @@
 import React from "react";
-import resume from "../assets/RLP.png";
+import resume from "../assets/Software Resume 2025.pdf";
 
 export default function Footer({ scrollToTop }) {
   return (

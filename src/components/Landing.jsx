@@ -2,7 +2,7 @@ import React from "react";
 
 import { FaEnvelope, FaRegFilePdf } from "react-icons/fa6";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
-import resume from "../assets/RLP.png";
+import resume from "../assets/Software Resume 2025.pdf";
 import Sphere from "./Sphere";
 
 export default function Landing({ handleContactClick }) {
