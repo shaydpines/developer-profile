@@ -6,8 +6,6 @@ import resume from "../assets/Software Resume 2025.pdf";
 import Sphere from "./Sphere";
 
 export default function Landing({ handleContactClick }) {
-  const isMobile = window.innerWidth <= 1024;
-  const baseDelay = isMobile ? 0 : 2400;
 
   return (
     <section id="landing">
@@ -31,6 +29,7 @@ export default function Landing({ handleContactClick }) {
             <span className="color--text">I'm Rafael,</span>
           </h1>
           <p
+            id="first-animation-trigger"
             className="header__para"
             data-aos="fade-right"
             data-aos-delay="1500"
@@ -56,7 +55,8 @@ export default function Landing({ handleContactClick }) {
                 key={i}
                 className="header__link color--background"
                 data-aos="fade-up"
-                data-aos-delay={baseDelay + i * 300}
+                data-aos-anchor="#first-animation-trigger"
+                data-aos-delay={i * 300}
                 data-aos-duration="500"
                 data-aos-easing="ease-in-out"
               >
@@ -74,7 +74,9 @@ export default function Landing({ handleContactClick }) {
         <a href="#projects" className="scroll">
           <div className="scroll__icon click"></div>
         </a>
-        <div className="landing__sphere--wrapper">
+        <div className="landing__sphere--wrapper"
+        data-aos="zoom-in"
+        data-aos-duration="3000">
           <Sphere />
         </div>
       </header>

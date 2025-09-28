@@ -13,6 +13,7 @@ export default function Nav({ toggleContrast, handleContactClick }) {
           <li className="nav__link">
             <a
               href="#"
+              onClick={handleContactClick}
               className="
             nav__link--anchor
             link__hover-effect

@@ -6,6 +6,7 @@
 
 :root {
   --color-primary: #3d7b7a;
+  --color-complimentary: #7b653d;
   --color-light: #fafafa;
   --color-dark: #242424;
 
@@ -14,6 +15,13 @@
   --color-bg: var(--color-light);
 
   --size-sphere: 420px;
+
+  /* background grid */
+  --box-width: 21px;
+  --box-height: 13px;
+  --box-gap: 1px;
+  --twinkle-speed: 12; 
+  --fade-duration: 1.2; /* seconds for fade-in */
 }
 
 .dark-theme {
@@ -37,6 +45,10 @@ code {
 
 html {
   scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg)
 }
 
 li {
@@ -103,9 +115,13 @@ button {
 }
 
 nav,
-section {
+.background__grid {
   background-color: var(--color-bg);
   transition: background-color 300ms ease;
+}
+
+section {
+  background-color: #00000000;
 }
 
 .title,
@@ -174,6 +190,23 @@ section {
 
 .click:hover {
   transform: scale(1.1);
+}
+
+/*
+
+Background Grid
+
+*/
+
+canvas.background-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--color-bg);
 }
 
 /*

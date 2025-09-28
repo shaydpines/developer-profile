@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
+import BackgroundGrid from './components/BackgroundGrid';
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -64,6 +65,7 @@ function App() {
         toggleContrast={toggleContrast}
         handleContactClick={handleContactClick}
       />
+      <BackgroundGrid radius={180} />
       <Routes>
         <Route
           path="/"
