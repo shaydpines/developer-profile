@@ -115,7 +115,7 @@ button {
 }
 
 nav,
-.background__grid {
+.background-canvas {
   background-color: var(--color-bg);
   transition: background-color 300ms ease;
 }
@@ -206,7 +206,6 @@ canvas.background-canvas {
   height: 100vh;
   z-index: -1;
   pointer-events: none;
-  background-color: var(--color-bg);
 }
 
 /*
