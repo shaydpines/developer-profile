@@ -759,6 +759,7 @@ Media
 
   .gyroscope {
     --size-sphere: 360px;
+    margin-left: 20px;
   }
 
   .project__description {

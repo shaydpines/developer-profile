@@ -29,7 +29,7 @@ export default function Projects() {
             />
             <Project
               image={Ultraverse}
-              title={"Ultraverse NFT Collections"}
+              title={"Ultraverse Collections"}
               tools={"HTML, CSS, Javascript, React, Tailwind"}
               description={
                 `NFT marketplace demo allowing users to browse NFT listings and view asset details, 
