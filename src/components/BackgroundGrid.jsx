@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 export default function BackgroundGrid({ radius = 180 }) {
   const canvasRef = useRef(null);
   const boxesRef = useRef([]);
-  const mouseRef = useRef({ x: -9999, y: -9999 });
+  const pointerRef = useRef({ x: -9999, y: -9999 });
   const animationRef = useRef(null);
 
   // Helper to read CSS variables
@@ -57,120 +57,119 @@ export default function BackgroundGrid({ radius = 180 }) {
     return () => window.removeEventListener("resize", resize);
   }, []);
 
-  // Mouse move
+  // Pointer tracking (mouse + touch + stylus)
   useEffect(() => {
-    const handleMove = (e) => {
-      mouseRef.current.x = e.clientX;
-      mouseRef.current.y = e.clientY;
+    const handlePointerMove = (e) => {
+      pointerRef.current.x = e.clientX;
+      pointerRef.current.y = e.clientY;
     };
-    window.addEventListener("mousemove", handleMove);
-    return () => window.removeEventListener("mousemove", handleMove);
+
+    window.addEventListener("pointermove", handlePointerMove);
+    return () => window.removeEventListener("pointermove", handlePointerMove);
   }, []);
 
-useEffect(() => {
-  const canvas = canvasRef.current;
-  const ctx = canvas.getContext("2d");
-  let lastTime = performance.now();
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    let lastTime = performance.now();
 
-  const activeBlinks = [];
+    const activeBlinks = [];
 
-  const draw = (time) => {
-    const dt = (time - lastTime) / 1000;
-    lastTime = time;
+    const draw = (time) => {
+      const dt = (time - lastTime) / 1000;
+      lastTime = time;
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    const { x: mx, y: my } = mouseRef.current;
-    const { boxes, boxWidth, boxHeight, colorHex, twinkleSpeed, fadeDuration } =
-      boxesRef.current;
+      const { x: mx, y: my } = pointerRef.current;
+      const { boxes, boxWidth, boxHeight, colorHex, twinkleSpeed, fadeDuration } =
+        boxesRef.current;
 
-    const BLINK_STEP_DURATION = 400; // ms per cell step
-    const LINE_LENGTH = 7;          // number of cells in the ripple line
-    const fadeDurationMs = fadeDuration * 1000;
+      if (!boxes) return;
 
-    // Occasionally start a new blink ripple
-    if (Math.random() < 0.0001 * boxes.length) {
-      const startIndex = Math.floor(Math.random() * boxes.length);
-      activeBlinks.push({ index: startIndex, startTime: time });
-    }
+      const BLINK_STEP_DURATION = 400; // ms per cell step
+      const LINE_LENGTH = 7;          // number of cells in the ripple line
+      const fadeDurationMs = fadeDuration * 1000;
 
-    boxes.forEach((b, idx) => {
-      // Twinkle
-      const twinkle =
-        0.7 +
-        0.3 *
-          Math.sin(
-            (2 * Math.PI * time) / (twinkleSpeed * 1000) + b.twinkleOffset
-          );
+      // Occasionally start a new blink ripple
+      if (Math.random() < 0.0001 * boxes.length) {
+        const startIndex = Math.floor(Math.random() * boxes.length);
+        activeBlinks.push({ index: startIndex, startTime: time });
+      }
 
-      // Initial fade-in
-      const fadeElapsed = Math.max(0, time - b.delay);
-      const fadeFactor = Math.min(fadeElapsed / fadeDurationMs, 1);
+      boxes.forEach((b, idx) => {
+        // Twinkle
+        const twinkle =
+          0.7 +
+          0.3 *
+            Math.sin(
+              (2 * Math.PI * time) / (twinkleSpeed * 1000) + b.twinkleOffset
+            );
 
-      // Mouse proximity (closer = more transparent)
-      const dx = mx - b.cx;
-      const dy = my - b.cy;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      const mouseFactor = dist < radius ? dist / radius : 1;
+        // Initial fade-in
+        const fadeElapsed = Math.max(0, time - b.delay);
+        const fadeFactor = Math.min(fadeElapsed / fadeDurationMs, 1);
 
-      // Blink effect
-      let blinkFactor = 1;
-      activeBlinks.forEach((blink) => {
-        const stepIndex = idx - blink.index;
-        if (stepIndex < 0 || stepIndex >= LINE_LENGTH) return;
+        // Pointer proximity (closer = more transparent)
+        const dx = mx - b.cx;
+        const dy = my - b.cy;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const pointerFactor = dist < radius ? dist / radius : 1;
 
-        const fadeOutStart = blink.startTime + stepIndex * BLINK_STEP_DURATION;
-        const fadeInStart =
-          blink.startTime +
-          LINE_LENGTH * BLINK_STEP_DURATION +
-          stepIndex * BLINK_STEP_DURATION;
+        // Blink effect
+        let blinkFactor = 1;
+        activeBlinks.forEach((blink) => {
+          const stepIndex = idx - blink.index;
+          if (stepIndex < 0 || stepIndex >= LINE_LENGTH) return;
 
-        if (time >= fadeOutStart && time < fadeOutStart + BLINK_STEP_DURATION) {
-          // Fade out
-          const t = (time - fadeOutStart) / BLINK_STEP_DURATION;
-          blinkFactor = 1 - t;
-        } else if (
-          time >= fadeOutStart + BLINK_STEP_DURATION &&
-          time < fadeInStart
-        ) {
-          // Stay invisible
-          blinkFactor = 0;
-        } else if (
-          time >= fadeInStart &&
-          time < fadeInStart + BLINK_STEP_DURATION
-        ) {
-          // Fade back in
-          const t = (time - fadeInStart) / BLINK_STEP_DURATION;
-          blinkFactor = t;
-        }
+          const fadeOutStart = blink.startTime + stepIndex * BLINK_STEP_DURATION;
+          const fadeInStart =
+            blink.startTime +
+            LINE_LENGTH * BLINK_STEP_DURATION +
+            stepIndex * BLINK_STEP_DURATION;
+
+          if (time >= fadeOutStart && time < fadeOutStart + BLINK_STEP_DURATION) {
+            const t = (time - fadeOutStart) / BLINK_STEP_DURATION;
+            blinkFactor = 1 - t;
+          } else if (
+            time >= fadeOutStart + BLINK_STEP_DURATION &&
+            time < fadeInStart
+          ) {
+            blinkFactor = 0;
+          } else if (
+            time >= fadeInStart &&
+            time < fadeInStart + BLINK_STEP_DURATION
+          ) {
+            const t = (time - fadeInStart) / BLINK_STEP_DURATION;
+            blinkFactor = t;
+          }
+        });
+
+        const opacity = b.baseOpacity * twinkle * fadeFactor * pointerFactor * blinkFactor;
+
+        const r = parseInt(colorHex.slice(1, 3), 16);
+        const g = parseInt(colorHex.slice(3, 5), 16);
+        const bColor = parseInt(colorHex.slice(5, 7), 16);
+
+        ctx.fillStyle = `rgba(${r},${g},${bColor},${opacity})`;
+        ctx.fillRect(b.left, b.top, boxWidth, boxHeight);
       });
 
-      const opacity = b.baseOpacity * twinkle * fadeFactor * mouseFactor * blinkFactor;
-
-      const r = parseInt(colorHex.slice(1, 3), 16);
-      const g = parseInt(colorHex.slice(3, 5), 16);
-      const bColor = parseInt(colorHex.slice(5, 7), 16);
-
-      ctx.fillStyle = `rgba(${r},${g},${bColor},${opacity})`;
-      ctx.fillRect(b.left, b.top, boxWidth, boxHeight);
-    });
-
-    // Clean up finished blinks
-    for (let i = activeBlinks.length - 1; i >= 0; i--) {
-      const blink = activeBlinks[i];
-      const totalDuration = LINE_LENGTH * BLINK_STEP_DURATION * 2; // out + back
-      if (time > blink.startTime + totalDuration + BLINK_STEP_DURATION) {
-        activeBlinks.splice(i, 1);
+      // Clean up finished blinks
+      for (let i = activeBlinks.length - 1; i >= 0; i--) {
+        const blink = activeBlinks[i];
+        const totalDuration = LINE_LENGTH * BLINK_STEP_DURATION * 2; // out + back
+        if (time > blink.startTime + totalDuration + BLINK_STEP_DURATION) {
+          activeBlinks.splice(i, 1);
+        }
       }
-    }
+
+      animationRef.current = requestAnimationFrame(draw);
+    };
 
     animationRef.current = requestAnimationFrame(draw);
-  };
-
-  animationRef.current = requestAnimationFrame(draw);
-  return () => cancelAnimationFrame(animationRef.current);
-}, [radius]);
-
+    return () => cancelAnimationFrame(animationRef.current);
+  }, [radius]);
 
   return <canvas ref={canvasRef} className="background-canvas" />;
 }

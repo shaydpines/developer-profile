@@ -47,8 +47,9 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  background-color: var(--color-bg)
+section {
+  background-color: var(--color-bg);
+  cursor: crosshair;
 }
 
 li {
@@ -600,6 +601,7 @@ Projects
   border-radius: 20px;
   box-shadow: 0 20px 80px 0 rgba(0, 0, 0, 0.45);
   overflow: hidden;
+  cursor: auto;
 }
 
 .project__wrapper:hover .project__description {
@@ -711,6 +713,7 @@ Media
 @media (max-width: 1024px) {
   header {
     flex-direction: column;
+    align-items: center;
   }
 
   .scroll {
@@ -754,6 +757,10 @@ Media
     max-width: 200px;
   }
 
+  .gyroscope {
+    --size-sphere: 360px;
+  }
+
   .project__description {
     left: 0;
     width: 100%;
@@ -772,6 +779,10 @@ Media
 
   .header__para {
     font-size: 18px;
+  }
+
+  .gyroscope {
+    --size-sphere: 300px;
   }
 
   .nav__link:first-child {

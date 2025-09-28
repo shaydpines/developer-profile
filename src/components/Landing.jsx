@@ -43,7 +43,7 @@ export default function Landing({ handleContactClick }) {
             thrive on solving problems, optimizing performance, and building
             intuitive user experiences that merge functionality with aesthetics.
             <br />
-            Here's a bit more <b className="color--text">about me.</b>
+            Here's a bit more <b className="color--text">about me:</b>
           </p>
           <ul className="header__link--list">
             {[
