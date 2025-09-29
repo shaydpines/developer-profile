@@ -16,9 +16,11 @@ export default function Home({ isModalOpen, toggleModal, handleContactClick }) {
 
   return (
     <>
+    <div className="Home">
       <Modal isModalOpen={isModalOpen} toggleModal={toggleModal} />
       <Landing handleContactClick={handleContactClick} />
       <Projects />
+    </div>
     </>
   );
 }

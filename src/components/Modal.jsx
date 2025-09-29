@@ -42,7 +42,7 @@ export default function Modal({ isModalOpen, toggleModal }) {
               loves turning ideas into interactive, eye-catching websites using
               JavaScript, React, and the latest web tools. If you like what you
               see and want a passionate developer to help make your web projects
-              shine, drop me a message—I promise I'll get back to you ASAP!
+              shine, drop me a message and I promise I'll get back to you ASAP!
             </p>
             <div className="modal__languages">
               <figure className="modal__language">
