@@ -50,7 +50,7 @@ export default function Projects() {
                 Completely responsive and dynamic with built in animations and loading states.`
               }
               github={"https://github.com/shaydpines/vite-movie-finder"}
-              link={"https://vite-movie-finder.vercel.app/"}
+              link={"https://vite-movie-finder-izaea5e54-rafael-ladmer-prices-projects.vercel.app/"}
             />
           </div>
         </div>
