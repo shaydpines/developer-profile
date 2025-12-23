@@ -49,8 +49,8 @@ export default function Projects() {
                 Once a film is selected a more specific API call is made to display further details. 
                 Completely responsive and dynamic with built in animations and loading states.`
               }
-              github={"https://github.com/shaydpines/movie-finder-react"}
-              link={"https://movie-finder-react-five.vercel.app/"}
+              github={"https://github.com/shaydpines/vite-movie-finder"}
+              link={"https://vite-movie-finder.vercel.app/"}
             />
           </div>
         </div>
